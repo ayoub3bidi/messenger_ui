@@ -5,6 +5,8 @@ class Conversations extends StatefulWidget {
   _ConversationsState createState() => _ConversationsState();
 }
 
+TextEditingController _searchController = new TextEditingController();
+
 class _ConversationsState extends State<Conversations> {
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,27 @@ class _ConversationsState extends State<Conversations> {
                 ),
                 Icon(Icons.edit)
               ],
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Container(
+              width: double.infinity,
+              height: 40,
+              decoration: BoxDecoration(
+                  color: Color(0xFFe9eaec),
+                  borderRadius: BorderRadius.circular(15)),
+              child: TextField(
+                cursorColor: Color(0xFF000000),
+                controller: _searchController,
+                decoration: InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: Color(0xFF000000).withOpacity(0.5),
+                    ),
+                    hintText: "Search",
+                    border: InputBorder.none),
+              ),
             ),
           ],
         ),
