@@ -28,6 +28,57 @@ List storyList = [
     }
   ];
 
+List conversationList = [
+    {
+      "name": "Majdi",
+      "imageUrl": "https://avatars.githubusercontent.com/u/60318289?v=4",
+      "isOnline": true,
+      "hasStory": true,
+      "message": "Ya weldi winek?",
+      "time": "5:00 pm"
+    },
+    {
+      "name": "Mohamed",
+      "imageUrl": "https://scontent.fnbe1-2.fna.fbcdn.net/v/t1.6435-1/p320x320/80392624_2641015322650985_962981089951875072_n.jpg?_nc_cat=110&ccb=1-5&_nc_sid=7206a8&_nc_ohc=A5C5V0UFhwUAX_hMUMe&tn=YJacikgOMnW4dTk_&_nc_ht=scontent.fnbe1-2.fna&oh=03842eacfe761aee16c35fd9f509cfea&oe=61C0E851",
+      "isOnline": false,
+      "hasStory": false,
+      "message": "It's soooooo good!",
+      "time": "7:23 pm"
+    },
+    {
+      "name": "Abderrazak",
+      "imageUrl": "https://scontent.fnbe1-2.fna.fbcdn.net/v/t31.18172-8/13502701_909299602514257_4626298798709559712_o.jpg?_nc_cat=111&ccb=1-5&_nc_sid=174925&_nc_ohc=hRaKAU12lmEAX8FtEVb&_nc_ht=scontent.fnbe1-2.fna&oh=aef2553138944f2a8f53a8c3035a392b&oe=61C1329D",
+      "isOnline": true,
+      "hasStory": false,
+      "message": "hhhhhhhhh",
+      "time": "10:50 pm"
+    },
+    {
+      "name": "Wassef",
+      "imageUrl": "https://avatars.githubusercontent.com/u/49594956?v=4",
+      "isOnline": true,
+      "hasStory": true,
+      "message": "let's gooo !",
+      "time": "yesterday"
+    },
+    {
+      "name": "Roustem",
+      "imageUrl": "https://scontent.fnbe1-2.fna.fbcdn.net/v/t1.6435-9/122947250_773033796594583_1324511997992682863_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=174925&_nc_ohc=1xz3I97Uo6QAX9rYYpX&tn=YJacikgOMnW4dTk_&_nc_ht=scontent.fnbe1-2.fna&oh=58a39da15fca4ffec522eb4caf10d10e&oe=61C13A08",
+      "isOnline": false,
+      "hasStory": true,
+      "message": "hhh JOJO refrence",
+      "time": "2nd Nov"
+    },
+    {
+      "name": "Idriss",
+      "imageUrl": "https://scontent.fnbe1-2.fna.fbcdn.net/v/t1.18169-9/26169937_358148444658126_6184937625770319968_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=174925&_nc_ohc=1lRArhK4VOUAX89KN2w&_nc_ht=scontent.fnbe1-2.fna&oh=b9ba68a3608ac3e1d99d8c85166399e4&oe=61BF35AA",
+      "isOnline": false,
+      "hasStory": false,
+      "message": "Bahi",
+      "time": "28th Jan"
+    }
+  ];
+
 class _ConversationsState extends State<Conversations> {
   @override
   Widget build(BuildContext context) {
@@ -82,6 +133,10 @@ body: SafeArea(
               height: 20,
             ),
             _stories(),
+            SizedBox(
+              height: 20,
+            ),
+            _conversations(context)
           ],
         ),
       )),
@@ -200,5 +255,100 @@ _stories() {
           }))
         ],
       ),
+    );
+  }
+
+_conversations(BuildContext context) {
+    return Column(
+      children: List.generate(conversationList.length, (index) {
+        return InkWell(
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 20),
+            child: Row(
+              children: <Widget>[
+                Container(
+                  width: 60,
+                  height: 60,
+                  child: Stack(
+                    children: <Widget>[
+                      conversationList[index]['hasStory'] ? 
+                      Container(
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border:
+                                Border.all(color: Colors.blueAccent, width: 3)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Container(
+                            width: 75,
+                            height: 75,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                    image: NetworkImage(
+                                        conversationList[index]['imageUrl']),
+                                    fit: BoxFit.cover)),
+                          ),
+                        ),
+                      )
+                      : Container(
+                        width: 70,
+                        height: 70,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    conversationList[index]['imageUrl']),
+                                fit: BoxFit.cover)),
+                      ),
+                      conversationList[index]['isOnline']
+                          ? Positioned(
+                              top: 38,
+                              left: 42,
+                              child: Container(
+                                width: 20,
+                                height: 20,
+                                decoration: BoxDecoration(
+                                    color: Color(0xFF66BB6A),
+                                    shape: BoxShape.circle,
+                                    border: Border.all(color: Color(0xFFFFFFFF), width: 3)),
+                              ),
+                            )
+                          : Container()
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      conversationList[index]['name'],
+                      style:
+                          TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width - 135,
+                      child: Text(
+                        conversationList[index]['message'] +
+                            " . " +
+                            conversationList[index]['time'],
+                        style: TextStyle(
+                            fontSize: 15, color: Color(0xFF000000).withOpacity(0.7)),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+        );
+      }),
     );
   }
